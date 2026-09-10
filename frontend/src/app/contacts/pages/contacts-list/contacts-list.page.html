@@ -1,0 +1,70 @@
+<div class="mb-5 flex flex-wrap items-start justify-between gap-4">
+  <div>
+    <h1 class="m-0 text-2xl font-bold">Contacts</h1>
+    <p class="mt-1 mb-0 text-[0.9rem] text-muted-color">Everyone you keep on file.</p>
+  </div>
+
+  <p-button
+    label="Add contact"
+    icon="pi pi-plus"
+    data-testid="add-contact"
+    (onClick)="addContact()"
+  />
+</div>
+
+<div class="mb-4">
+  <label class="sr-only" for="contact-search">Search contacts by name</label>
+  <p-iconfield>
+    <p-inputicon class="pi pi-search" />
+    <input
+      #searchBox
+      id="contact-search"
+      pInputText
+      type="search"
+      placeholder="Search by name"
+      data-testid="search-contacts"
+      [value]="search()"
+      (input)="onSearch(searchBox.value)"
+    />
+  </p-iconfield>
+</div>
+
+@if (error(); as message) {
+  <p-message
+    severity="error"
+    styleClass="mb-4 flex items-center gap-3"
+    data-testid="contacts-error"
+  >
+    <span>{{ message }}</span>
+    <p-button label="Try again" size="small" [text]="true" (onClick)="retry()" />
+  </p-message>
+}
+
+@if (isEmpty()) {
+  <div
+    class="flex flex-col items-center gap-2 rounded-[10px] border border-dashed border-surface px-6 py-14 text-center text-muted-color"
+    data-testid="contacts-empty"
+  >
+    <i class="pi pi-address-book text-[2rem] opacity-60" aria-hidden="true"></i>
+    @if (search()) {
+      <h2 class="mt-1 mb-0 text-[1.1rem] font-bold text-color">No matches</h2>
+      <p class="mt-0 mb-2">No contact matches “{{ search() }}”.</p>
+    } @else {
+      <h2 class="mt-1 mb-0 text-[1.1rem] font-bold text-color">Nothing here yet</h2>
+      <p class="mt-0 mb-2">Add your first contact to get started.</p>
+      <p-button label="Add contact" icon="pi pi-plus" (onClick)="addContact()" />
+    }
+  </div>
+} @else {
+  <app-contact-table
+    [contacts]="contacts()"
+    [loading]="loading()"
+    [totalRecords]="totalRecords()"
+    [rows]="pageSize()"
+    [first]="firstRow()"
+    (pageChange)="onPageChange($event)"
+    (view)="view($event)"
+    (edit)="edit($event)"
+    (remove)="remove($event)"
+  />
+}

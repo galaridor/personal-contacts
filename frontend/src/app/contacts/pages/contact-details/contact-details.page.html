@@ -1,0 +1,76 @@
+@if (contact(); as contact) {
+  <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p-button
+        label="Back to contacts"
+        icon="pi pi-arrow-left"
+        severity="secondary"
+        [text]="true"
+        data-testid="back-to-contacts"
+        (onClick)="back()"
+      />
+      <h1 class="mt-2 mb-0 text-[1.6rem] font-bold" data-testid="contact-full-name">
+        {{ contact.firstName }} {{ contact.surname }}
+      </h1>
+    </div>
+
+    <div class="flex gap-2">
+      <p-button label="Edit" icon="pi pi-pencil" data-testid="edit-contact" (onClick)="edit()" />
+      <p-button
+        label="Delete"
+        icon="pi pi-trash"
+        severity="danger"
+        [outlined]="true"
+        data-testid="delete-contact"
+        (onClick)="remove()"
+      />
+    </div>
+  </div>
+
+  <dl class="m-0 grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-4">
+    <div class="rounded-[10px] border border-surface p-4">
+      <dt class="text-xs font-semibold tracking-[0.04em] text-muted-color uppercase">
+        Date of birth
+      </dt>
+      <dd class="mt-[0.4rem] mb-0 ml-0 text-base leading-normal" data-testid="detail-dateOfBirth">
+        {{ contact.dateOfBirth | date: 'dd MMMM yyyy' }}
+      </dd>
+    </div>
+
+    <div class="rounded-[10px] border border-surface p-4">
+      <dt class="text-xs font-semibold tracking-[0.04em] text-muted-color uppercase">
+        Phone number
+      </dt>
+      <dd class="mt-[0.4rem] mb-0 ml-0 text-base leading-normal" data-testid="detail-phoneNumber">
+        {{ contact.phoneNumber }}
+      </dd>
+    </div>
+
+    <div class="rounded-[10px] border border-surface p-4">
+      <dt class="text-xs font-semibold tracking-[0.04em] text-muted-color uppercase">IBAN</dt>
+      <dd
+        class="mt-[0.4rem] mb-0 ml-0 font-mono text-base leading-normal"
+        data-testid="detail-iban"
+      >
+        {{ contact.iban | iban }}
+      </dd>
+    </div>
+
+    <div class="col-span-full rounded-[10px] border border-surface p-4">
+      <dt class="text-xs font-semibold tracking-[0.04em] text-muted-color uppercase">Address</dt>
+      <dd class="mt-[0.4rem] mb-0 ml-0 text-base leading-normal" data-testid="detail-address">
+        {{ contact.address.street }} {{ contact.address.houseNumber }}<br />
+        {{ contact.address.postalCode }} {{ contact.address.city }}<br />
+        {{ contact.address.country }}
+      </dd>
+    </div>
+  </dl>
+} @else if (loading()) {
+  <div class="flex flex-col gap-3" aria-busy="true" aria-live="polite">
+    <span class="sr-only">Loading contact…</span>
+    <p-skeleton height="2rem" width="14rem" />
+    <p-skeleton height="1.25rem" width="100%" />
+    <p-skeleton height="1.25rem" width="80%" />
+    <p-skeleton height="1.25rem" width="60%" />
+  </div>
+}

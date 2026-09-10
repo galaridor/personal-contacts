@@ -1,0 +1,16 @@
+<header class="border-b border-surface bg-(--p-content-background) px-6 py-4">
+  <a
+    class="inline-flex items-center gap-[0.6rem] text-[1.1rem] font-semibold text-color no-underline"
+    routerLink="/contacts"
+  >
+    <i class="pi pi-address-book text-primary" aria-hidden="true"></i>
+    <span>Personal Contacts</span>
+  </a>
+</header>
+
+<main id="main" class="mx-auto w-full max-w-6xl flex-1 p-6 outline-none" tabindex="-1">
+  <router-outlet />
+</main>
+
+<p-toast position="top-right" />
+<p-confirmdialog />

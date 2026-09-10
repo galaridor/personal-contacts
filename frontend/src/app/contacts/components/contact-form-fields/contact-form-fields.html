@@ -1,0 +1,292 @@
+<div [formGroup]="form()">
+  <fieldset class="mt-0 mb-6 rounded-[10px] border border-surface p-5">
+    <legend
+      class="px-[0.4rem] text-[0.8rem] font-semibold tracking-[0.04em] text-muted-color uppercase"
+    >
+      Personal details
+    </legend>
+
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-4">
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="firstName">
+          First name <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="firstName"
+          pInputText
+          class="w-full"
+          formControlName="firstName"
+          autocomplete="given-name"
+          data-testid="firstName"
+          [attr.aria-invalid]="!!messages()['firstName']"
+          [attr.aria-describedby]="!!messages()['firstName'] ? 'firstName-error' : null"
+        />
+        @if (messages()['firstName']; as message) {
+          <small
+            id="firstName-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="firstName-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="surname">
+          Surname <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="surname"
+          pInputText
+          class="w-full"
+          formControlName="surname"
+          autocomplete="family-name"
+          data-testid="surname"
+          [attr.aria-invalid]="!!messages()['surname']"
+          [attr.aria-describedby]="!!messages()['surname'] ? 'surname-error' : null"
+        />
+        @if (messages()['surname']; as message) {
+          <small
+            id="surname-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="surname-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="dateOfBirth">
+          Date of birth <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <p-datepicker
+          class="w-full"
+          inputId="dateOfBirth"
+          formControlName="dateOfBirth"
+          dateFormat="yy-mm-dd"
+          placeholder="yyyy-mm-dd"
+          appendTo="body"
+          [maxDate]="today"
+          [showIcon]="true"
+          [showOnFocus]="false"
+          [inputStyleClass]="!!messages()['dateOfBirth'] ? 'ng-invalid ng-dirty' : ''"
+        />
+        @if (messages()['dateOfBirth']; as message) {
+          <small
+            id="dateOfBirth-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="dateOfBirth-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="phoneNumber">
+          Phone number <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="phoneNumber"
+          pInputText
+          class="w-full"
+          formControlName="phoneNumber"
+          autocomplete="tel"
+          inputmode="tel"
+          placeholder="+359 87 823 4563"
+          data-testid="phoneNumber"
+          [attr.aria-invalid]="!!messages()['phoneNumber']"
+          [attr.aria-describedby]="!!messages()['phoneNumber'] ? 'phoneNumber-error' : null"
+        />
+        @if (messages()['phoneNumber']; as message) {
+          <small
+            id="phoneNumber-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="phoneNumber-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="col-span-full flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="iban">
+          IBAN <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="iban"
+          pInputText
+          class="w-full font-mono uppercase"
+          formControlName="iban"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="BG80 BNBG 9661 1020 3456 78"
+          data-testid="iban"
+          [attr.aria-invalid]="!!messages()['iban']"
+          [attr.aria-describedby]="!!messages()['iban'] ? 'iban-error' : null"
+        />
+        @if (messages()['iban']; as message) {
+          <small
+            id="iban-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="iban-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-0 mb-6 rounded-[10px] border border-surface p-5" formGroupName="address">
+    <legend
+      class="px-[0.4rem] text-[0.8rem] font-semibold tracking-[0.04em] text-muted-color uppercase"
+    >
+      Address
+    </legend>
+
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-4">
+      <div class="col-span-full flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="street">
+          Street <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="street"
+          pInputText
+          class="w-full"
+          formControlName="street"
+          autocomplete="address-line1"
+          data-testid="street"
+          [attr.aria-invalid]="!!messages()['address.street']"
+          [attr.aria-describedby]="!!messages()['address.street'] ? 'street-error' : null"
+        />
+        @if (messages()['address.street']; as message) {
+          <small
+            id="street-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="street-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="houseNumber">
+          House number <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="houseNumber"
+          pInputText
+          class="w-full"
+          formControlName="houseNumber"
+          data-testid="houseNumber"
+          [attr.aria-invalid]="!!messages()['address.houseNumber']"
+          [attr.aria-describedby]="!!messages()['address.houseNumber'] ? 'houseNumber-error' : null"
+        />
+        @if (messages()['address.houseNumber']; as message) {
+          <small
+            id="houseNumber-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="houseNumber-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="postalCode">
+          Postal code <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="postalCode"
+          pInputText
+          class="w-full"
+          formControlName="postalCode"
+          autocomplete="postal-code"
+          data-testid="postalCode"
+          [attr.aria-invalid]="!!messages()['address.postalCode']"
+          [attr.aria-describedby]="!!messages()['address.postalCode'] ? 'postalCode-error' : null"
+        />
+        @if (messages()['address.postalCode']; as message) {
+          <small
+            id="postalCode-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="postalCode-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="city">
+          City <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="city"
+          pInputText
+          class="w-full"
+          formControlName="city"
+          autocomplete="address-level2"
+          data-testid="city"
+          [attr.aria-invalid]="!!messages()['address.city']"
+          [attr.aria-describedby]="!!messages()['address.city'] ? 'city-error' : null"
+        />
+        @if (messages()['address.city']; as message) {
+          <small
+            id="city-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="city-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+
+      <div class="flex min-w-0 flex-col">
+        <label class="mb-[0.35rem] text-sm font-medium" for="country">
+          Country <span class="text-(--p-red-500)" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="country"
+          pInputText
+          class="w-full font-mono uppercase"
+          formControlName="country"
+          maxlength="2"
+          placeholder="BG"
+          data-testid="country"
+          [attr.aria-invalid]="!!messages()['address.country']"
+          [attr.aria-describedby]="
+            !!messages()['address.country'] ? 'country-error' : 'country-hint'
+          "
+        />
+        <small id="country-hint" class="mt-[0.35rem] text-[0.8125rem] text-muted-color">
+          Two-letter ISO code, for example BG.
+        </small>
+        @if (messages()['address.country']; as message) {
+          <small
+            id="country-error"
+            class="mt-[0.35rem] flex items-center gap-[0.35rem] text-[0.8125rem] text-(--p-red-600)"
+            data-testid="country-error"
+            role="alert"
+          >
+            <i class="pi pi-exclamation-circle" aria-hidden="true"></i>{{ message }}
+          </small>
+        }
+      </div>
+    </div>
+  </fieldset>
+</div>

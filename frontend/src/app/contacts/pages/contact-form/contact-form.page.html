@@ -1,0 +1,31 @@
+<div class="mb-5">
+  <h1 class="m-0 text-2xl font-bold">{{ isEdit ? 'Edit contact' : 'New contact' }}</h1>
+  <p class="mt-1 mb-0 text-[0.9rem] text-muted-color">Feilds marked with * are required.</p>
+</div>
+
+<form novalidate [formGroup]="form" (ngSubmit)="submit()">
+  <app-contact-form-fields
+    [form]="form"
+    [serverErrors]="serverErrors()"
+    [submitAttempted]="submitAttempted()"
+  />
+
+  <div class="flex justify-end gap-3">
+    <p-button
+      label="Cancel"
+      severity="secondary"
+      [text]="true"
+      [disabled]="saving()"
+      data-testid="cancel-contact"
+      (onClick)="cancel()"
+    />
+    <p-button
+      type="submit"
+      label="Save contact"
+      icon="pi pi-check"
+      [loading]="saving()"
+      [disabled]="saving()"
+      data-testid="save-contact"
+    />
+  </div>
+</form>
